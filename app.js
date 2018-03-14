@@ -1,3 +1,9 @@
+// ############## <For Heroku Development> ###############
+const express = require('express');
+const app = express();
+// ############## </For Heroku Development> ###############
+
+
 var CronJob = require('cron').CronJob;
 var twilio = require('twilio');
 const accountSid = 'ACXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX';
@@ -7,17 +13,10 @@ const companyNum = '+12345678910' // Change to your Company's Twillio number pro
 
 // values
 // if '*', then it means every.
-var Seconds = "00"; // range is 00-59
-var Minutes = " 15"; // range is 00-59
-var Hour = " 9"; // range is 0-23
-var DaysOfMonth = " *" // range is 1-31
-var Months = " *" // range is 0-11
-var DaysOfWeek = " 1-5" // value is as an range, 0 = sunday while 6 = saturday. Total range is 0-6
-
-var job = new CronJob( Seconds + Minutes + Hour + DaysOfMonth + Months + DaysOfWeek, function() {
+var Schedule = new CronJob('00 30 9 * * 1-5', function() {// Executes code inside once at time dependency
   /*
    * Runs every weekday (Monday [1] through Friday [5])
-   * at  9:15 AM. It does not run on Saturday or Sunday
+   * at  9:30 AM. It does not run on Saturday or Sunday
    */
   const Num = 12345678910;
 	const Message = "This is an test";
@@ -30,12 +29,15 @@ var job = new CronJob( Seconds + Minutes + Hour + DaysOfMonth + Months + DaysOfW
     mediaUrl: MediaUrl,
     }).then((message) => process.stdout.write(message.sid));
 
-  }, function () {
-    /*
-     * This function is executed when the job stops
-     */
-     console.log("Message sent!");
-  },
-  true,
-  timeZone
-);
+  }, null, true, 'America/New_York'); 
+
+
+// ######################## Below is just for Heroku Development #############################
+app.get('/', function (req, res) {
+  res.send('Server is Online!')
+});
+console.log("System is online");
+const PORT = process.env.PORT || 5000; // Heroku dynamic port
+app.listen(PORT);
+
+
