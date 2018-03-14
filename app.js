@@ -7,12 +7,12 @@ const companyNum = '+12345678910' // Change to your Company's Twillio number pro
 
 // values
 // if '*', then it means every.
-var Seconds = 00; // range is 00-59
-var Minutes = 15; // range is 00-59
-var Hour = 9; // range is 0-23
-var DaysOfMonth = '*' // range is 1-31
-var Months = '*' // range is 0-11
-var DaysOfWeek = '1-5' // value is as an range, 0 = sunday while 6 = saturday. Total range is 0-6
+var Seconds = "00"; // range is 00-59
+var Minutes = " 15"; // range is 00-59
+var Hour = " 9"; // range is 0-23
+var DaysOfMonth = " *" // range is 1-31
+var Months = " *" // range is 0-11
+var DaysOfWeek = " 1-5" // value is as an range, 0 = sunday while 6 = saturday. Total range is 0-6
 
 var job = new CronJob( Seconds + Minutes + Hour + DaysOfMonth + Months + DaysOfWeek, function() {
   /*
